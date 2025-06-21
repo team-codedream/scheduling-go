@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import '../styles/CalendarPage.css';
 import HeaderBar from '../components/HeaderBar';
-import SideMenu from '../components/SideMenu';
 
 export default function CalendarPage() {
   const [isSideOpen, setSideOpen] = useState(false);

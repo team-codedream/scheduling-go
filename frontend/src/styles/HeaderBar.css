@@ -1,7 +1,5 @@
-/* src/styles/HeaderBar.css */
-
 .headerbar {
-  position: relative;       /* pulldown-menu의 기준이 됩니다 */
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,8 +17,6 @@
   font-size: 1.5rem;
 }
 
-/* pulldown-menu 컨테이너는 headerbar 안에서 position:relative 이므로,
-   바로 아래에 absolute로 붙습니다 */
 .pulldown-menu {
   position: absolute;
   top: 100%;     /* headerbar 높이(70px) 바로 밑 */
@@ -36,7 +32,6 @@
   transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-/* visible 클래스가 붙으면 바로 보여줍니다 */
 .pulldown-menu.visible {
   opacity: 1;
   visibility: visible;
