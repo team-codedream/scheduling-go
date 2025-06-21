@@ -1,0 +1,49 @@
+/* src/styles/HeaderBar.css */
+
+.headerbar {
+  position: relative;       /* pulldown-menu의 기준이 됩니다 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  padding: 0 1rem;
+  background: #f0f0f0;
+  z-index: 10;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+/* pulldown-menu 컨테이너는 headerbar 안에서 position:relative 이므로,
+   바로 아래에 absolute로 붙습니다 */
+.pulldown-menu {
+  position: absolute;
+  top: 100%;     /* headerbar 높이(70px) 바로 밑 */
+  right: 1rem;   /* 우측 패딩과 동일하게 맞춤 */
+  background: #e2e8f0;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0);
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* visible 클래스가 붙으면 바로 보여줍니다 */
+.pulldown-menu.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hamburger-btn {
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+}
