@@ -1,0 +1,53 @@
+/* src/styles/CalendarPage.css */
+
+.calendar-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+}
+
+.header {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  z-index: 20;
+}
+
+.side-panel { 
+    position: fixed;
+    top: 70px; 
+    bottom: 60px;
+    left: 0; 
+    width: 240px;
+    background: #afaeae;
+    transform: translateX(0);
+    z-index: 15;
+}
+
+.panel-content {
+  padding: 1rem;
+  color: #333;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  height: calc(100vh - 120px); /* header+footer */
+  transition: margin-left 0.3s ease;
+  margin-left: 0;
+}
+
+.main-content.shifted {
+  margin-left: 240px;
+}
+
+.footer {
+  height: 60px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 20;
+}
