@@ -3,6 +3,7 @@
   flex-direction: column;
   height: 100vh;
   position: relative;
+  overflow:hidden; /* 바깥 스크롤 제거 */
 }
 
 .header {
@@ -13,31 +14,34 @@
 }
 
 .side-panel { 
-    position: fixed;
+    position: absolute;
     top: 70px; 
-    bottom: 60px;
-    left: 0; 
+    left: 0px; 
     width: 240px;
-    background: #afaeae;
+    height: calc(100% - 70px);
+    background:  #1e1e50;
     transform: translateX(0);
     z-index: 15;
 }
 
 .panel-content {
   padding: 1rem;
-  color: #333;
+  color: #ffffff;
 }
 
 .main-content {
-  flex: 1;
-  padding: 1rem;
-  height: calc(100vh - 120px); /* header+footer */
   transition: margin-left 0.3s ease;
-  margin-left: 0;
+  overflow-y:auto; /* main-content스크롤 가능 */
 }
 
 .main-content.shifted {
   margin-left: 240px;
+}
+
+.content-hover:hover{
+  transform:scale(1.05);
+  cursor:pointer;
+  color:aqua
 }
 
 .footer {
@@ -46,6 +50,4 @@
   display: flex;
   align-items: center;
   padding: 0 1rem;
-  position: relative;
-  z-index: 20;
 }

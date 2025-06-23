@@ -32,7 +32,7 @@ export default function IntroductionPage() {
                     <section className="intro-features">
                         <h3>주요 기능</h3>
                         <ul>
-                                    <li>일정 등록/수정/삭제=하루 일정부터 장기계획까지 쉽게 추가하고 관리할 수 있어요.</li><br/>
+                                    <li>일정 등록/수정/삭제=하루 일정부터 장기계획까지 쉽게 추가하고 관리할 수 있어요.</li>
                                     <li>카테고리별 색상 태그=업무, 개인, 약속 등 카테고리를 색으로 구분해 한눈에 확인 가능</li>
                         </ul>            
                     </section>
