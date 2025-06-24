@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=dev nodemon ./bin/www",
     "start": "cross-env NODE_ENV=prod node ./bin/www",
-    "test": "cross-env NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test nodemon ./bin/www",
+    "test-api": "cross-env NODE_ENV=test jest",
     "test-db": "node ./test/test-db.js"
   },
   "dependencies": {
