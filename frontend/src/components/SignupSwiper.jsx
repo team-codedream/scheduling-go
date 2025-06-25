@@ -3,9 +3,9 @@ import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
-import testImage1 from '../assets/images/signupSwipertestImage1.jpg';
-import testImage2 from '../assets/images/signupSwipertestImage2.jpg';
-import testImage3 from '../assets/images/signupSwipertestImage3.jpg';
+import testImage1 from '../assets/images/signupSwipertestImage1.png';
+import testImage2 from '../assets/images/signupSwipertestImage2.png';
+import testImage3 from '../assets/images/signupSwipertestImage3.png';
 
 // Import Swiper styles
 import 'swiper/css';

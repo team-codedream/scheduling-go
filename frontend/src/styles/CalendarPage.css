@@ -6,6 +6,14 @@
   overflow:hidden; /* 바깥 스크롤 제거 */
 }
 
+.calendar-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.2); /* 60% 불투명 화이트로 톤 다운 */
+  pointer-events: none;
+}
+
 .header {
   height: 70px;
   display: flex;
@@ -14,14 +22,18 @@
 }
 
 .side-panel { 
-    position: absolute;
-    bottom: 60px;
-    top: 70px; 
-    left: 0px; 
-    width: 240px;
-    background:  #1e1e50;
-    transform: translateX(0);
-    z-index: 15;
+  position: absolute;
+  bottom: 50px;
+  top: 70px;
+  left: 0px; 
+  width: 240px;
+  background:  #1e1e50;
+  transform: translateX(0);
+  z-index: 15;
+  border-radius: 0 0 5px 0;
+  box-shadow:
+    /* 안쪽 그림자: -1px 안쪽, 3px 블러, 알파 0.4 */
+    inset -1px 0 3px rgba(128, 128, 128, 0.4);
 }
 
 .panel-content {
@@ -30,14 +42,32 @@
 }
 
 .main-content {
+  height: calc(100% - 70px - 50px);
   transition: margin-left 0.3s ease;
-  overflow-y:auto; /* main-content스크롤 가능 */
   display: flex;
   justify-content: center;
+  background: linear-gradient(135deg, #8e44ad, #5f27cd, #3498db, #6c5ce7, #2980b9);
+  background-size: 200% 200%;
+  animation: gradientHip 15s ease-in-out infinite;
+}
+
+@keyframes gradientHip {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .main-content.shifted {
   margin-left: 240px;
+}
+
+.main-content-layer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;  /* 세로 중앙 → 상단 정렬 */
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 0;    /* 자식의 overflow 보장 */
 }
 
 .content-hover:hover{
@@ -47,15 +77,22 @@
 }
 
 .footer {
+  background-color: #E1E8F5;      /* 약간 푸른빛 도는 연그레이 */
+  border-top: 1px solid #BCCAE0;  /* 상단에 얇은 보더로 경계 강조 */
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.05); /* 위쪽으로만 살짝 그림자 */
+  border-top: 1px solid #E0E0E0;
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 60px;
+  height: 50px;
   background: #f0f0f0;
   display: flex;
   align-items: center;
   padding: 0 1rem;
   z-index: 20;    /* 사이드 패널보다 위에 붙음 */
+  padding: 10px;
+  display: flex;
+  justify-content: center;
 }
 

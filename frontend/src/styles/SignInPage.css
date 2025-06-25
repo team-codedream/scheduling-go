@@ -1,33 +1,57 @@
 .container-wrap-signin {
   width: 100%;
   height: 100vh;
-  background: #999999; /* 색상변경할 것 */
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(135deg, #8e44ad, #5f27cd, #3498db, #6c5ce7, #2980b9);
+  background-size: 200% 200%;
+  animation: gradientHip 15s ease-in-out infinite;
 }
+
+.container-wrap-signin::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.2); /* 60% 불투명 화이트로 톤 다운 */
+  pointer-events: none;
+}
+
+@keyframes gradientCalm {
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
+}
+
 .container-signin {
   display: flex;
   flex-direction: row;
   max-width: 1200px;
   width:100%;
   margin: auto;
-  border: 1px solid #6a6a6ab8;
-  border-radius: 6px;
+  color: whitesmoke;
+  box-shadow:
+    0 0 8px rgb(185, 184, 184),       /* 근접 퍼짐 */
+    0 0 16px rgb(185, 184, 184);      /* 넓게 퍼짐 */
+  border-radius: 10px;
+  z-index: 10;
 }
+
 .left-container-signin {
   width: 52%;
   /* 이미지의 경우 */
   /* background: #fafafa; */
   /* 동영상의 경우 */
   background: #FAFBF8;
-  border-radius: 5px 0 0 5px;
+  border-radius: 10px 0 0 10px;
 }
+
 .right-container-signin {
   width: 48%;
-  background: #A2C4C9;
-  border-radius: 0 5px 5px 0;
+  background: #0B1D51;
+  border-radius: 0 10px 10px 0;
 }
+
 #header-signin {
   padding-top: 20px;
   padding-left: 40px;
@@ -35,9 +59,11 @@
   color: #085394;
   font-size: clamp(0.8em, 3vw, 1.7em);
 }
+
 #aside-signin {
   padding: 20px;
 }
+
 #main-signin {
   padding: 20px;
   display: flex;
@@ -45,29 +71,35 @@
   justify-content: center;
   align-items: center;
 }
+
 #footer-signin {
   margin: 10px;
   text-align: center;
-  color: #085394;
+  color: skyblue;
   font-size: 0.9em;
 }
+
 .greeting-signin {
   font-size: clamp(1em, 4vw, 3em);
   font-weight: bold;
   margin-top: 80px;
 }
+
 .input-form-signin{
   width:65%;
   display: flex;
   flex-direction: column;
   margin: auto;
+  margin-top: 10px;
 }
+
 .input-form-signin label{
 
     font-weight: bold;
     margin-top: 10px;
     margin-bottom: 5px;
 }
+
 .input-form-signin input{
     width: 100%;
     border: 1px solid #000000;
@@ -75,40 +107,49 @@
     border-radius: 4px;
     padding: 5px;
 }
+
 .input-form-signin input:focus {
   outline: none; /* 브라우저 기본 아웃라인 제거 */
   border: 1px solid #085394; /* 파란색 테두리 적용 */
   box-shadow: 0 0 8px rgba(24, 75, 109, 0.8); /* 부드러운 그림자 효과 */
   transition: border-color 0.3s ease, box-shadow 0.3s ease; /* 자연스러운 전환 효과 */ 
 }
+
 .signin-button {
   width: 30%;
   height: 35px;
-  margin : 20px 0;
-  background-color: #085394;
-  color: white;
+  margin-top: 50px;
+  margin-bottom: 20px;
   border: none;
-  border-radius: 4px;
   font-size: clamp(0.8em, 2vw, 1.2em);
   /* font-size: 1.2rem; */
   cursor: pointer;
-} 
-.signin-button:hover {
-  background-color: #031f38;
-  color: white;
+  background: skyblue;
+  color: #170055;
+  padding: 0.2rem 1.2rem;
+  font-weight: bold;
+  border-radius: 6px;
 }
+
+.signin-button:hover {
+  background: #9C19E0;
+  color: #170055;
+}
+
 [class$="textbox-signin"] {
   padding: 10px;
   text-align: center;
 }
+
 .link-style-signin {
-  text-decoration: underline #085394;
-  color: #085394;
+  text-decoration: underline gray;
+  color: lightgray;
   cursor: pointer;
 }
+
 .link-style-signin:hover {
-  text-decoration: underline #031f38;
-  color: #031f38;
+  text-decoration: underline gray;
+  color: lightgray;
   font-weight: 600;
 }
 
