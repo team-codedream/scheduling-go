@@ -79,7 +79,7 @@ export default function SignInPage({ onSignInSuccess, onCreateAccount }) {
             </div>
             <div className='reset-password-textbox-signin'>
               <span>Forgot your password?</span><br/>
-              <span className="link-style-signin">Reset Password (미구현)</span>
+              <span className="link-style-signin">Reset Password</span>
             </div>
           </main>
 

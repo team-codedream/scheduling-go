@@ -111,3 +111,31 @@
   color: #031f38;
   font-weight: 600;
 }
+
+@media (max-width:426px) {
+  .container-signin {
+    flex-direction: column;
+  }
+  .left-container-signin {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+  }
+  .right-container-signin {
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+  }
+  #aside-signin {
+    display: none;
+  }
+  #header-signin {
+    padding-left: 0px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #085394;
+    font-size: clamp(1.2em, 3vw, 1.7em);
+  }
+  .greeting-signin {
+    font-size: clamp(1.6em, 4vw, 3em);
+    margin-top: 20px;
+  }
+}

@@ -51,6 +51,7 @@ export default function SignUpPage({ onSignUpSuccess }) {
           <aside id="aside-signup">
             <span className="description-textbox-signup">Try out our powerful scheduling features</span>
             <SignupSwiper />
+            <span style={{height: "60px"}} ></span>
           </aside>
         
         </div>
