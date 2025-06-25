@@ -1,21 +1,59 @@
 .full-calendar-view-wrapper {
   width: 100%;
   max-width: 1500px;
-  height: 80vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  padding: 30px;
+  padding: 60px 50px;
 }
 
 .full-calendar-view-content {
-  width: 80%;
+  width: 100%;
   height: 100%;
-  max-width: 1200px;
+  max-width: 1500px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 5%;
   box-sizing: border-box;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  opacity: 90%;
+  /* 입체감 있는 그림자 */
+  box-shadow:
+    /* 바깥 그림자 */
+    0 8px 20px rgba(0, 0, 0, 0.2),
+    /* 안쪽 음영으로 깊이감 */
+    inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.fc-daygrid-day.fc-day.fc-day-today {
+  background-color: #E1F5FE !important; /* 연한 스카이 블루 */
+  border-radius: 4px;
+}
+
+.create-event-button-wrapper {
+  display: flex;
+  margin-bottom: 20px;
+  align-self: self-start;
+}
+
+.create-event-button {
+  background-color: #5f27cd;;
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.create-event-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }

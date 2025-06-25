@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import '../styles/CalendarPage.css';
 import HeaderBar from '../components/HeaderBar';
-import CalendarView from '../components/CalendarView';
 import FullCalendarView from '../components/FullCalendarView';
 import IntroductionView from '../components/IntroductionView'; // Assuming this component exists
 
@@ -59,14 +58,14 @@ export default function CalendarPage({ onLogout }) {
         className={`main-content ${isSideOpen ? 'shifted' : ''}`}
         onClick={() => { closeSide(); closeProfile(); }}
       >
-        <div>
+        <div className="main-content-layer">
           {activeView === 'calendar' && <FullCalendarView />}
           {activeView === 'introduction' && <IntroductionView/>}
         </div>
       </main>
 
       <footer className="footer">
-        <div>Footer Content</div>
+        <div>copyright © 2025 / codedream team all rights reserved.</div>
       </footer>
     </div>
   );

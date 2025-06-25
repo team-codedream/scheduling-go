@@ -1,7 +1,7 @@
 import '../styles/IntroductionView.css';
 import instagramQrImage from '../assets/images/instagramQr.png'; // QR 코드 이미지 경로
 
-export default function IntroductionPage() {
+export default function IntroductionView() {
     return (
         <div className="introduction-wrapper">
             <div className="intro-text">
