@@ -56,6 +56,12 @@ h2 {
   font-weight: 400;
   line-height: 1.5;
 }
+.input-border-width:hover {
+  border-color: #4096ff;
+}
+.description-fld textarea:hover {
+  border-color: #4096ff;
+}
 .input-border-width:focus {
   border-color: #4096ff;
   box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
@@ -69,14 +75,19 @@ h2 {
 .input-fld .clear-button {
   position: absolute;
   right: 10px;
-  top: 57%;
+  top: 55%;
   background: none;
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: 17px;
   cursor: pointer;
   padding: 0;
   margin: 0;
+  color: #bfbfbf;
+}
+.input-fld .clear-button:hover {
+  color: #8c8c8c;
+  transition: all 0.2s ease;
 }
 
 /* 행 정렬 (날짜, 시간) */
@@ -114,6 +125,7 @@ input::placeholder,
 textarea::placeholder {
   color: #BFBFBF;
   font-weight: 400;
+  font-size: 14px;
   font-family: 'Noto Sans', sans-serif;
 }
 
