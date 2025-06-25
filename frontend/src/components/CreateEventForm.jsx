@@ -18,6 +18,7 @@ export default function CreateEventForm({ calendarId, onSuccess }) {
 
   const [formData, setFormData] = useState({ ...initialFormState });
   const [error, setError] = useState('');
+  const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
@@ -37,6 +38,18 @@ export default function CreateEventForm({ calendarId, onSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    const newErrors = {};
+
+    if (!formData.title) newErrors.title = '* Title is required.';
+    if (!formData.startDate) newErrors.startDate = '* Start date is required.';
+    if (!formData.endDate) newErrors.endDate = '* End date is required.';
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    setErrors({});
+
     // validation
     if (!formData.title || !formData.startDate || !formData.endDate) {
       setError('Title, start date and end date are required.');
@@ -87,7 +100,7 @@ export default function CreateEventForm({ calendarId, onSuccess }) {
             id="title"
             name="title"
             type="text"
-            placeholder="타이틀을 입력하세요"
+            placeholder="Enter the title"
             value={formData.title}
             onChange={handleChange}
             className="input-border-width"
@@ -102,6 +115,7 @@ export default function CreateEventForm({ calendarId, onSuccess }) {
             </button>
           )}
         </div>
+        {errors.title && <div className="error-msg">{errors.title}</div>}
       </div>
 
       <div className="row">
@@ -117,6 +131,7 @@ export default function CreateEventForm({ calendarId, onSuccess }) {
             }
             allowClear
         />
+        {errors.startDate && <div className="error-msg">{errors.startDate}</div>}
         </div>
 
         <div className="input-fld">
@@ -130,6 +145,7 @@ export default function CreateEventForm({ calendarId, onSuccess }) {
               setFormData(prev => ({ ...prev, endDate: dateString }))
             }
           />
+          {errors.endDate && <div className="error-msg">{errors.endDate}</div>}
         </div>
       </div>
 
@@ -160,16 +176,19 @@ export default function CreateEventForm({ calendarId, onSuccess }) {
 
       <div className="color-fld">
         <label htmlFor="color" className="mt">
-          Color <span className="required">*</span>
+          Color
         </label>
-        <ColorPicker
-          defaultValue={initialFormState.color}
-          value={formData.color}
-          showText
-          onChangeComplete={(color) =>
-            setFormData(prev => ({ ...prev, color: color.toHexString() }))
-          }
-        />
+        <div>
+          <ColorPicker
+            defaultValue={initialFormState.color}
+            value={formData.color}
+            showText
+            onChangeComplete={(color) =>
+              setFormData(prev => ({ ...prev, color: color.toHexString() }))
+            }
+          />
+          {errors.color && <div className="error-msg">{errors.color}</div>}
+        </div>
       </div>
 
       <div className="description-fld">
@@ -177,7 +196,7 @@ export default function CreateEventForm({ calendarId, onSuccess }) {
         <textarea
           id="description"
           name="description"
-          placeholder="내용을 입력하세요"
+          placeholder="Enter the contents"
           value={formData.description}
           onChange={handleChange}
         />
