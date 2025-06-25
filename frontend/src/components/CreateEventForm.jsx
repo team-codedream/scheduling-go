@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DatePicker, TimePicker, ColorPicker } from 'antd';
 import moment from 'moment';
-import { FaRegTimesCircle } from 'react-icons/fa';
+import { IoCloseCircleSharp } from 'react-icons/io5';
 import '../styles/CalendarModal.css';
 import { createEvent } from '../api/api';
 
@@ -111,7 +111,7 @@ export default function CreateEventForm({ calendarId, onSuccess }) {
               className="clear-button"
               onClick={() => handleClearField('title')}
             >
-              <FaRegTimesCircle />
+              <IoCloseCircleSharp  />
             </button>
           )}
         </div>
