@@ -4,23 +4,40 @@ import '../styles/CalendarPage.css';
 import HeaderBar from '../components/HeaderBar';
 import CalendarView from '../components/CalendarView';
 import IntroductionView from '../components/IntroductionView'; // Assuming this component exists
-import CreateEventModal from '../components/CreateEventModal';
-import { Button } from 'antd';
 
 export default function CalendarPage() {
+  const dummyUser = {
+    id:1,
+    email:'example@codedream.com',
+    nickname:'홍길동',
+  }
+  const [user, setUser] = useState(dummyUser);
+  // 가상 사용자 정보 //
+
   const [isSideOpen, setSideOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [activeView, setActiveView] = useState('calendar'); // 'calendar' or 'introduction'
 
-  const toggleSide = () => setSideOpen(prev => !prev);
-  const toggleProfile = () => setProfileOpen(prev => !prev);
+  const toggleSide = () => {
+    if(window.innerWidth<=425){
+      closeProfile();
+    }
+    setSideOpen(prev => !prev);
+  }
+  const toggleProfile = () => {
+    if(window.innerWidth<=425){
+      closeSide();
+    }
+    setProfileOpen(prev => !prev);
+  }
+  
   const closeProfile = () => setProfileOpen(false);
   const closeSide = () => setSideOpen(false);
-
-  // modal
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleMenuClick = (view) => {
+    if(window.innerWidth <= 425){
+      closeSide(); 
+    } setActiveView(view);
+  }
 
   return (
     <div className="calendar-page">
@@ -29,24 +46,17 @@ export default function CalendarPage() {
             onToggleSide={toggleSide}
             onToggleProfile={toggleProfile}
             isProfileOpen={isProfileOpen}
+            user={user}
         />
       </header>
-
-      {/* modal button */}
-      <div style={{ padding: '20px' }}>
-        <Button type="primary" onClick={handleOpenModal}>
-          일정 등록
-        </Button>
-        <CreateEventModal open={isModalOpen} onClose={handleCloseModal} />
-      </div>
 
       {/* Side Panel: raw aside element */}
       {isSideOpen && (
         <aside className="side-panel">
           <div className="panel-content">
-           <p className="content-hover" onClick = {()=>{setActiveView('introduction')}}>About SchedulingGo</p>
+           <p className="content-hover" onClick = {()=>{handleMenuClick('introduction')}}>About SchedulingGo</p>
            <hr/>
-           <p className="content-hover" onClick = {()=>{setActiveView('calendar')}}>MyCalender</p>
+           <p className="content-hover" onClick = {()=>{handleMenuClick('calendar')}}>MyCalendar</p>
           </div>
         </aside>
       )}

@@ -6,7 +6,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { FaCircleUser } from "react-icons/fa6";
 import { FaCalendarCheck } from "react-icons/fa";
 
-export default function HeaderBar({ onToggleSide, onToggleProfile, isProfileOpen }) {
+export default function HeaderBar({ onToggleSide, onToggleProfile, isProfileOpen, user }) {
   return (
     <header className="headerbar">
       <div className="headbar-left">
@@ -18,13 +18,13 @@ export default function HeaderBar({ onToggleSide, onToggleProfile, isProfileOpen
         </div>
       </div>
       
-      <FaCircleUser className="toggle-btn headerbar-icon" onClick={onToggleProfile}/>
-      
-        {isProfileOpen && (
-          <div className="pulldown-menu visible">
-            <ProfileForm/>
-          </div>
-        )}
+      <div className="headbar-right">
+      <span className="headbar-email">{user.email}</span>
+      <FaCircleUser className="toggle-btn headerbar-icon" onClick={onToggleProfile}/>     
+        <div className={`pulldown-menu ${isProfileOpen ? 'visible' : ''}`}>
+          <ProfileForm user={user} />
+        </div>
+      </div>
       
     </header>
   );
