@@ -74,7 +74,7 @@ export default function CustomSwiperWithPagination() {
         className="custom-pagination"
         style={{
           position: 'absolute',
-          bottom: '-80px',
+          bottom: '-50px',
           width: '100%',
           textAlign: 'center',
         }}
