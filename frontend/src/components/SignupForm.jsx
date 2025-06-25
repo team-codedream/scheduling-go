@@ -11,7 +11,7 @@ import {
 
 // Todo. d
 
-export default function SignupForm({ onSignUpSuccess }) {
+export default function SignupForm({ onSubmit }) {
   // 입력 상태
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
@@ -62,7 +62,7 @@ export default function SignupForm({ onSignUpSuccess }) {
       return;
     }
     // 폼의 데이터({ nickname, email, password, phone })를 전달하여 회원가입 성공 처리
-    onSignUpSuccess({ nickname, email, password, phone });
+    onSubmit({email, nickname, pw: password, phone});
   };
 
   return (

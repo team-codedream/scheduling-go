@@ -1,7 +1,7 @@
 // temp code for testing
 
 // regex-based validation without external library
-const isISO = s => /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/.test(s);
+const isISO = s => /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}\+09:00$/.test(s);
 const isHex = s => /^#([0-9A-F]{3}){1,2}$/i.test(s);
 
 exports.validateEvent = (req, res, next) => {
@@ -10,15 +10,19 @@ exports.validateEvent = (req, res, next) => {
   // POST: check all fields
   if (req.method === 'POST') {
     if (!calendarId) {
+      console.log('calendarId required');
       return res.status(400).json({ error: 'calendarId required' });
     }
     if (!title) {
+      console.log('title required');
       return res.status(400).json({ error: 'title required' });
     }
-    if (!start || !isISO(start) || !end || !isISO(end)) {
+    if (!isISO(start) || !isISO(end)) {
+      console.log('Invalid dates');
       return res.status(400).json({ error: 'Invalid dates' });
     }
     if (bgcolor && !isHex(bgcolor)) {
+      console.log('Invalid color');
       return res.status(400).json({ error: 'Invalid color' });
     }
     return next();

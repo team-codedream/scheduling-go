@@ -13,7 +13,7 @@ exports.signin = async (req, res, next) => {
     const { email, pw } = req.body;
     const userDTO = await UserService.findByCredentials(email, pw);
     if (!userDTO) {
-        return res.status(401).send('Invalid credentials');
+      return res.status(401).send('Invalid credentials');
     }
     req.session.userId = userDTO.id;
     res.json(userDTO);

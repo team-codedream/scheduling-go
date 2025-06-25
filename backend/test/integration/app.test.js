@@ -70,21 +70,17 @@ describe('API Integration Tests', () => {
       cookie = res.headers['set-cookie'];
     });
 
-    test('GET /users → all users DTO', async () => {
+    test('GET /users → current user DTO', async () => {
       const res = await request(app)
-        .get('/users')
-        .set('Cookie', cookie);
+      .get('/users')
+      .set('Cookie', cookie);
       expect(res.status).toBe(200);
-      expect(res.body).toEqual(
-        expect.arrayContaining(
-          users.map(u => ({
-            id: u.id,
-            email: u.email,
-            nickname: u.nickname,
-            phone: u.phone
-          }))
-        )
-      );
+      expect(res.body).toMatchObject({
+        id: users[0].id,
+        email: users[0].email,
+        nickname: users[0].nickname,
+        phone: users[0].phone
+      });
     });
 
     test('GET /users/:id → single user DTO', async () => {

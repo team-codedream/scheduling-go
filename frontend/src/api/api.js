@@ -3,6 +3,7 @@ const API = 'http://localhost:8080';
 async function signup({ email, nickname, pw, phone }) {
   const res = await fetch(`${API}/auth/signup`, {
     method: 'POST',
+    mode: 'cors',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     body: JSON.stringify({ email, nickname, pw, phone })
@@ -16,12 +17,13 @@ async function signup({ email, nickname, pw, phone }) {
 async function signin({ email, pw }) {
   const res = await fetch(`${API}/auth/signin`, {
     method: 'POST',
+    mode: 'cors',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     body: JSON.stringify({ email, pw })
   });
   if (!res.ok) {
-    throw new Error(`Signin failed: ${res.status}`);
+    throw new Error('User not found or password is incorrect.');
   }
   return await res.json(); // { id, email, nickname, phone }
 }
@@ -29,6 +31,7 @@ async function signin({ email, pw }) {
 async function signout() {
   const res = await fetch(`${API}/auth/signout`, {
     method: 'POST',
+    mode: 'cors',
     credentials: 'include'
   });
   if (!res.ok && res.status !== 204) {
@@ -39,17 +42,43 @@ async function signout() {
 // GET /users → UserDTO[]
 // body: [{id, email, nickname, phone}]
 async function listUsers() {
-  const res = await fetch(`${API}/users`, { method:'GET', credentials:'include' });
+  const res = await fetch(`${API}/users`, { 
+    method:'GET',
+    mode: 'cors',
+    credentials:'include'
+  });
   if (!res.ok) {
     throw new Error(`List failed: ${res.status}`);
   }
   return await res.json(); // UserDTO[]
 }
 
+// 로그인된 사용자 정보 조회
+async function getCurrentUser() {
+  const res = await fetch(`${API}/users`, { 
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'include'
+  });
+  if (!res.ok) {
+    throw new Error(`Fetch current user failed: ${res.status}`);
+  }
+  return await res.json(); // { id, email, nickname, phone }
+}
+
+// 사용 예시
+// getCurrentUser()
+//   .then(user => console.log('Current user:', user))
+//   .catch(err => console.error('Error:', err));
+
 // GET /users/:id → UserDTO
 // body: {id, email, nickname, phone}
 async function getUser(id) {
-  const res = await fetch(`${API}/users/${id}`, { method:'GET', credentials:'include' });
+  const res = await fetch(`${API}/users/${id}`, { 
+    method:'GET',
+    mode: 'cors',
+    credentials:'include'
+  });
   if (!res.ok) {
     throw new Error(`Get failed: ${res.status}`);
   }
@@ -60,6 +89,7 @@ async function getUser(id) {
 async function listUserEvents(id) {
   const res = await fetch(`${API}/users/${id}/events`, {
     method: 'GET',
+    mode: 'cors',
     credentials: 'include'
   });
   if (!res.ok) {
@@ -73,6 +103,7 @@ async function listUserEvents(id) {
 async function listEvents(start, end) {
   const res = await fetch(`${API}/events?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`, {
     method: 'GET',
+    mode: 'cors',
     credentials: 'include'
   });
   if (!res.ok) {
@@ -86,6 +117,7 @@ async function listEvents(start, end) {
 async function getEvent(id) {
   const res = await fetch(`${API}/events/${id}`, {
     method: 'GET',
+    mode: 'cors',
     credentials: 'include'
   });
   if (!res.ok) {
@@ -99,6 +131,7 @@ async function getEvent(id) {
 async function createEvent(eventData) {
   const res = await fetch(`${API}/events`, {
     method: 'POST',
+    mode: 'cors',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     body: JSON.stringify(eventData)
@@ -113,6 +146,7 @@ async function createEvent(eventData) {
 async function updateEvent(id, eventData) {
   const res = await fetch(`${API}/events/${id}`, {
     method: 'PUT',
+    mode: 'cors',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     body: JSON.stringify(eventData)
@@ -126,6 +160,7 @@ async function updateEvent(id, eventData) {
 async function deleteEvent(id) {
   const res = await fetch(`${API}/events/${id}`, {
     method: 'DELETE',
+    mode: 'cors',
     credentials: 'include'
   });
   if (!res.ok && res.status !== 204) {
@@ -139,6 +174,7 @@ export {
   signout,
   listUsers,
   getUser,
+  getCurrentUser,
   listUserEvents,
   listEvents,
   getEvent,

@@ -3,17 +3,10 @@ import React, { useState } from 'react';
 import '../styles/CalendarPage.css';
 import HeaderBar from '../components/HeaderBar';
 import CalendarView from '../components/CalendarView';
+import FullCalendarView from '../components/FullCalendarView';
 import IntroductionView from '../components/IntroductionView'; // Assuming this component exists
 
-export default function CalendarPage() {
-  const dummyUser = {
-    id:1,
-    email:'example@codedream.com',
-    nickname:'홍길동',
-  }
-  const [user, setUser] = useState(dummyUser);
-  // 가상 사용자 정보 //
-
+export default function CalendarPage({ onLogout }) {
   const [isSideOpen, setSideOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [activeView, setActiveView] = useState('calendar'); // 'calendar' or 'introduction'
@@ -42,11 +35,11 @@ export default function CalendarPage() {
   return (
     <div className="calendar-page">
       <header className='header'>
-         <HeaderBar
-            onToggleSide={toggleSide}
-            onToggleProfile={toggleProfile}
-            isProfileOpen={isProfileOpen}
-            user={user}
+        <HeaderBar
+          onToggleSide={toggleSide}
+          onToggleProfile={toggleProfile}
+          isProfileOpen={isProfileOpen}
+          onLogout={onLogout}
         />
       </header>
 
@@ -67,9 +60,8 @@ export default function CalendarPage() {
         onClick={() => { closeSide(); closeProfile(); }}
       >
         <div>
-          {activeView === 'calendar' && <CalendarView />}
+          {activeView === 'calendar' && <FullCalendarView />}
           {activeView === 'introduction' && <IntroductionView/>}
-
         </div>
       </main>
 

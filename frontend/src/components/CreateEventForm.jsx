@@ -1,44 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { DatePicker, TimePicker, ColorPicker } from 'antd';
-import { FaRegTimesCircle } from "react-icons/fa";
+import moment from 'moment';
+import { FaRegTimesCircle } from 'react-icons/fa';
 import '../styles/CalendarModal.css';
+import { createEvent } from '../api/api';
 
-export default function CreateEventForm({ onSubmit }) {
+export default function CreateEventForm({ calendarId, onSuccess }) {
+  const initialFormState = {
+    title: '',
+    startDate: null,
+    endDate: null,
+    startTime: null,
+    endTime: null,
+    color: '#1677ff',
+    description: ''
+  };
 
-const initialFormState = {
-  title: '',
-  startDate: '',
-  endDate: '',
-  startTime: '',
-  endTime: '',
-  color: '',
-  description: ''
-};
-
-const [formData, setFormData] = useState({
-  title: '',
-  startDate: '',
-  endDate: '',
-  startTime: '',
-  endTime: '',
-  color: '',
-  description: ''
-});
-
-  useEffect(() => {
-    console.log('formData 변경됨:', formData);
-  }, [formData]);
+  const [formData, setFormData] = useState({ ...initialFormState });
+  const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('[submitted data]', formData);
-    // API 호출 시점
-    onSubmit();
   };
 
   const handleClearField = (field) => {
@@ -46,115 +30,174 @@ const [formData, setFormData] = useState({
   };
 
   const handleClearForm = () => {
-    setFormData(initialFormState);
-  }; 
+    setFormData({ ...initialFormState });
+    setError('');
+  };
 
-  return (   
-    <form onSubmit={handleSubmit}>
-        <h2>Schedule Registration</h2>
-        {/* title */}
-        <div className="input-fld">
-        <div className="label-pnl">
-            <label for="title" className="mt">Title</label>
-            <span className="required">*</span>
-        </div>
-        {/* title input */}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    // validation
+    if (!formData.title || !formData.startDate || !formData.endDate) {
+      setError('Title, start date and end date are required.');
+      return;
+    }
+
+    // format to yyyy-MM-ddThh:mm+09:00
+    const fmt = (date, time, defaultTime) => {
+      const t = time ? time.slice(0,5) : defaultTime;
+      return `${date}T${t}+09:00`;
+    };
+
+    const eventData = {
+      calendarId: calendarId ?? 1, // to fix
+      title: formData.title,
+      start: fmt(formData.startDate, formData.startTime, '00:00'),
+      end: fmt(formData.endDate, formData.endTime, '23:59'),
+      description: formData.description || undefined,
+      bgcolor: formData.color
+    };
+
+    try {
+      setSubmitting(true);
+      const event = await createEvent(eventData);
+      console.log(event);
+      onSuccess();
+      handleClearForm();
+    } catch (err) {
+      console.error(err);
+      setError('Failed to create event.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <form className="create-event-form" onSubmit={handleSubmit}>
+      <h2>Schedule Registration</h2>
+
+      {error && <div className="error-text">{error}</div>}
+
+      <div className="input-fld">
+        <label htmlFor="title" className="mt">
+          Title <span className="required">*</span>
+        </label>
         <div className="title-pnl">
-            <input
-                className="input-border-width"
-                id="title"
-                name="title"
-                type="text"
-                placeholder="타이틀을 입력하세요"
-                value={formData.title}
-                onChange={handleChange}
-            />
-            {/* clear title */}
-            {formData.title && (
-            <button className="clear-button" onClick={() => handleClearField('title')}>
-                <FaRegTimesCircle />
-            </button>
-            )}
-        </div>
-        </div>
-
-        {/* date */}
-        <div className="row">
-        {/* start date */}
-        <div className="input-fld">
-            <div className="label-pnl">
-            <label for="start-date" className="mt">Start date</label>
-            <span className="required">*</span>
-            </div>
-            {/* start date input */}
-            <div className="date-pnl">
-            {/* datepicker */}
-            <DatePicker className="picker" onChange={(date, dateString) => setFormData(prev => ({ ...prev, startDate: dateString }))} />
-            </div>
-        </div>
-
-            {/* end date */}
-            <div className="input-fld">
-            <div className="label-pnl">
-                <label for="end-date" className="mt">End date</label>
-                <span className="required">*</span>
-            </div>
-            {/* end date input */}
-            <div className="date-pnl">
-                {/* datepicker */}
-                <DatePicker className="picker" onChange={(date, dateString) => setFormData(prev => ({ ...prev, endDate: dateString }))} />
-            </div>
-            </div>    
-        </div>
-
-        {/* time */}
-        <div className="row">
-            {/* start time */}
-            <div className="input-fld">
-            <label for="start-time" className="mt">Start time</label>
-                <div className="time-pnl">
-                {/* timepicker */}
-                <TimePicker className="picker" onChange={(time, timeString) => setFormData(prev => ({ ...prev, startTime: timeString }))}/>
-                </div>
-            </div>
-
-            {/* end time */}
-            <div className="input-fld">
-            <label for="end-time" className="mt">End time</label>
-                <div className="time-pnl">
-                {/* timepicker */}
-                <TimePicker className="picker" onChange={(time, timeString) => setFormData(prev => ({ ...prev, endTime: timeString }))}/>
-                </div>
-            </div>
-        </div>
-
-        {/* color */}
-        <div className="color-fld">
-            <label for="color" className="mt">Color</label>
-            <span className="required">*</span>
-            {/* colorpicker */}
-            <div>
-                <ColorPicker defaultValue="#1677ff" showText onChangeComplete={(color) => setFormData(prev => ({ ...prev, color: color.toHexString() }))} />
-            </div>
-        </div>
-
-        {/* description */}
-        <div className="description-fld">
-        <label for="description" className="mt">Description</label>
-            <textarea
-            id="description"
-            name="description"
-            placeholder="내용을 입력하세요"
-            value={formData.description}
+          <input
+            id="title"
+            name="title"
+            type="text"
+            placeholder="타이틀을 입력하세요"
+            value={formData.title}
             onChange={handleChange}
-            />
+            className="input-border-width"
+          />
+          {formData.title && (
+            <button
+              type="button"
+              className="clear-button"
+              onClick={() => handleClearField('title')}
+            >
+              <FaRegTimesCircle />
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="input-fld">
+          <label htmlFor="start-date" className="mt">
+            Start date <span className="required">*</span>
+          </label>
+          <DatePicker
+            className="picker"
+            value={formData.startDate ? moment(formData.startDate) : null}
+            onChange={(date, dateString) =>
+              setFormData(prev => ({ ...prev, startDate: dateString }))
+            }
+            allowClear
+        />
         </div>
 
-        {/* button */}
-        <div className="btn-fld">
-            <button type="button" className="btn1" onClick={handleClearForm}>Cancel</button>
-            <button type="submit" className="btn2">Submit</button>
+        <div className="input-fld">
+          <label htmlFor="end-date" className="mt">
+            End date <span className="required">*</span>
+          </label>
+          <DatePicker
+            className="picker"
+            value={formData.endDate ? moment(formData.endDate) : null}
+            onChange={(date, dateString) =>
+              setFormData(prev => ({ ...prev, endDate: dateString }))
+            }
+          />
         </div>
+      </div>
+
+      <div className="row">
+        <div className="input-fld">
+          <label htmlFor="start-time" className="mt">Start time</label>
+          <TimePicker
+            className="picker"
+            value={formData.startTime ? moment(formData.startTime, 'HH:mm') : null}
+            onChange={(time, timeString) =>
+              setFormData(prev => ({ ...prev, startTime: timeString }))
+            }
+            allowClear
+        />
+        </div>
+
+        <div className="input-fld">
+          <label htmlFor="end-time" className="mt">End time</label>
+          <TimePicker
+            className="picker"
+            value={formData.endTime ? moment(formData.endTime, 'HH:mm') : null}
+            onChange={(time, timeString) =>
+              setFormData(prev => ({ ...prev, endTime: timeString }))
+            }
+          />
+        </div>
+      </div>
+
+      <div className="color-fld">
+        <label htmlFor="color" className="mt">
+          Color <span className="required">*</span>
+        </label>
+        <ColorPicker
+          defaultValue={initialFormState.color}
+          value={formData.color}
+          showText
+          onChangeComplete={(color) =>
+            setFormData(prev => ({ ...prev, color: color.toHexString() }))
+          }
+        />
+      </div>
+
+      <div className="description-fld">
+        <label htmlFor="description" className="mt">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          placeholder="내용을 입력하세요"
+          value={formData.description}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="btn-fld">
+        <button 
+          type="button"
+          className="btn1"
+          onClick={handleClearForm}
+          disabled={submitting}>
+          Reset
+        </button>
+        <button 
+          type="submit"
+          className="btn2"
+          disabled={submitting}>
+          {submitting ? 'Submitting...' : 'Submit'}
+        </button>
+      </div>
     </form>
   );
 }

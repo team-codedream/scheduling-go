@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const controller = require('../controllers/userController');
-const { list, getById, listEvents } = controller;
+const { getCurrent, getById, listEvents } = controller;
 
-router.get('/', list); // search all users
+router.get('/', getCurrent); // get current user
 router.get('/:id', getById); // search a specific user by id
 router.get('/:id/events', listEvents); // search all events of specific user
 
