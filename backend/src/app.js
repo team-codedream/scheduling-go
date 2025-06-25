@@ -27,7 +27,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({ 
     origin: 'http://localhost:3000',
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 200,
+    credentials: true
  }));
  
 // session setup

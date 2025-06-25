@@ -3,9 +3,21 @@ import { FaRegCircleLeft, FaCalendarCheck } from "react-icons/fa6";
 import SignupForm from "../components/SignupForm";
 import '../styles/SignUpPage.css';
 import SignupSwiper from '../components/SignupSwiper';
+import { signup, signin } from '../api/api';
 
-// TODO: signUp의 API를 적절히 추가할 것!!
 export default function SignUpPage({ onSignUpSuccess }) {
+
+  const handleSignUp = async ({ email, nickname, pw, phone }) => {
+    try {
+      await signup({ email, nickname, pw, phone });
+      const user = await signin({ email, pw });
+      console.log(user); // for testing
+      onSignUpSuccess(); // call navigation handler
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="container-wrap-signup">
       
@@ -21,7 +33,7 @@ export default function SignUpPage({ onSignUpSuccess }) {
               <FaRegCircleLeft />
             </div>
             <span className='title-signup'>Sign Up</span>
-            <SignupForm onSignUpSuccess={onSignUpSuccess} />
+            <SignupForm onSubmit={handleSignUp} />
           </main>
 
         </div>

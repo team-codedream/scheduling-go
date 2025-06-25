@@ -1,0 +1,21 @@
+.full-calendar-view-wrapper {
+  width: 100%;
+  max-width: 1500px;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 30px;
+}
+
+.full-calendar-view-content {
+  width: 80%;
+  height: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}

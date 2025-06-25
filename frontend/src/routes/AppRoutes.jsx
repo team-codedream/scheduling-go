@@ -31,7 +31,7 @@ export default function AppRoutes() {
       {/* CalendarPage   */}
       <Route 
         path="/calendar"
-        element={<CalendarPage />}
+        element={<CalendarPage onLogout={() => navigate('/')}/>}
       />
       {/* DefaultPage */}
       <Route 

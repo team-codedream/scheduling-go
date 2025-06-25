@@ -23,6 +23,7 @@ exports.getById = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
+    console.log(req.session.userId);
     const userId = parseInt(req.session.userId);
     const data = { ...req.body, userId: userId };
     const eventDTO = await EventService.create(data);

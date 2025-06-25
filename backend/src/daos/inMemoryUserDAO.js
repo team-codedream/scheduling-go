@@ -28,6 +28,7 @@ async function createUser(data) {
   const id = nextUserId++;
   const newUser = { id, email, nickname, pw, phone };
   users.set(id, newUser);
+  console.log(users.values());
   return newUser;
 }
 
