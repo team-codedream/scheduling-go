@@ -7,7 +7,7 @@
   height: 70px;
   padding: 0 1rem;
   background: #0e284b;
-  z-index: 10;
+  z-index: 20;
 }
 
 .headbar-left{
@@ -54,11 +54,18 @@
   color: white;
 }
 
+
+.headbar-email{
+  color: white;
+  margin-right: 10px;
+}
 .toggle-btn {
+  float:right;
   background: none;
   border: none;
   cursor: pointer;
   color:#b0d5ff;
+  
 }
 
 .toggle-btn:hover {
@@ -72,17 +79,50 @@
   right:0;   /* 우측 패딩과 동일하게 맞춤 */
   background: #1e1e50;
   padding: 0.5rem 1rem;
-  border-radius: 3px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(0);
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+   /* 화면 밖으로 숨김 */
+  visibility:hidden;
+  overflow:hidden;
+  z-index:10;
+  pointer-events: none; 
+  transform:translateX(100%);
+  transition: transform 0.3s ease-in-out;
 }
 
 .pulldown-menu.visible {
-  opacity: 1;
-  visibility: visible;
+  transform:translateX(0);
+  visibility:visible;
+  pointer-events: auto;
 }
 
+@media (max-width:1024px) {
+  .pulldown-menu{
+    height:250px;
+  }
+
+}
+
+@media (max-width:768px) {
+  .team-name {
+    display:none;
+  }
+  .headbar-email {
+    display:none;
+  }
+}
+
+@media (max-width:426px) {
+  .pulldown-menu {
+    width: 100%;
+    height:calc(100vh - 70px);
+    right: 0;
+    left: 0; /* 좌우 패딩을 없애고 전체 너비로 확장 */
+  }
+  .title{
+    font-size: 1.2rem;
+  }
+  .calendar-icon {
+    font-size: 20px;
+  }
+}

@@ -5,7 +5,7 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  position: relative; /* ✅ 하단 고정 기준 */
+  position: relative; 
 }
 
 .section-title {
@@ -35,13 +35,13 @@
   color: #ccc;
 }
 
-/* ✅ 버전 정보 아래 고정 */
+
 .version-info {
   font-size: 12px;
   line-height: 1.4;
 
   position: absolute;
-  bottom: 50px; /* 여유 줘서 logout 위에 */
+  bottom: 50px; 
   left: 10px;
 }
 
@@ -78,4 +78,50 @@
 
 .instagram-icon:hover {
   transform: scale(1.1);
+}
+
+@media (max-width:1024px) {
+  .account-panel{
+    height:250px;
+    
+  }
+  .version-info {
+  font-size: 12px;
+  line-height: 1.4;
+
+  position: absolute;
+  bottom: 55px; 
+  
+ }
+
+.bottom-section {
+  position: absolute;
+  bottom: 25px;
+  left: 10px;
+  right: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+}
+
+
+@media (max-width:426px) {
+  .account-panel{
+    width: 100%;
+    height:calc(100vh - 70px);
+    right: 0;
+    left: 0; 
+  }
+  .version-info{
+    bottom:80px;
+  }
+  .bottom-section {
+    width: 75%;  
+    position: absolute;
+    bottom: 50px;
+    left: 10px;
+    
+  }
 }
